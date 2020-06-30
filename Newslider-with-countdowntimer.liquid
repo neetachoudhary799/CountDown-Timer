@@ -1,0 +1,264 @@
+{%- if section.blocks.size > 0 -%}
+<div class="new-slidershow ">
+<div class="new-slideshow-slider"> 
+  {%- for block in section.blocks -%}
+      {%- if block.settings.image == blank -%}
+      {%- assign image ="https://placehold.it/1600x600" -%}  
+      {%- else -%}
+      {%- assign image = block.settings.image -%}      
+      {%- endif -%}
+{%if block.settings.checkboxset_slider %}
+        <div class="background-image custom_newimage custom_slider_box_{{forloop.index}} {{block.id}}" style="background-size: cover !important;object-fit: contain;background:url({{image | img_url:''}});">
+          {%comment%}<img src="{{image | img_url:''}}">{%endcomment%}	
+			<div class="custom_box">
+{% if block.settings.select_id == 'Top' %} 
+              {%- if block.settings.image_one != blank -%}
+              <div class="custom_logoimage custom_brandiamge_{{block.settings.select_id}}">
+                <img src="{{block.settings.image_one | img_url:''}}">
+              </div>
+              {%endif%}
+{%endif%}
+
+            {%- if block.settings.title != blank -%}
+            <h1 style="color:{{block.settings.color_1}};" >{{block.settings.title}}</h1>	
+            {%endif%}
+            {%- if block.settings.subheading != blank -%}
+            <h3 style="color:{{block.settings.color_1}};">{{block.settings.subheading}}</h3>	
+            {%endif%}
+            {%- if block.settings.subdescription != blank -%}
+            <p style="color:{{block.settings.color_4}};">{{block.settings.subdescription}}</p>	
+            {%endif%}
+{% if block.settings.checkboxset_time != blank %}
+<div class="custom_countdowntimer">
+  <p class="Custom_timerdemo_{{forloop.index}}" 
+     id="Custom_timerdemo" 
+     newdate="{{ "today" | date: "%b %d, %Y" }}" 
+     data-time="{%if block.settings.set_time != blank%}{{block.settings.set_time}}{%else%}{{ "today" | date: "%b %d, %Y" }}{%endif%}{%comment%}{{block.settings.set_time}}{%endcomment%}"></p>
+              </div>
+{% endif %}
+              {%- if block.settings.banner_btn_title != blank or block.settings.banner_btn_title_one != blank -%} 
+              <div class="basel-button-wrapper custom_btn_style">
+                {%if block.settings.banner_btn_title != blank and block.settings.banner_link != blank %}<a style="background:{{block.settings.color_2}};color:{{block.settings.color_3}};" href="{{ block.settings.banner_link }}" class="btn btn-color-primary btn-style-default btn-size-default">{{ block.settings.banner_btn_title }}</a>{%endif%}
+              {%if block.settings.banner_btn_title_one != blank and  block.settings.banner_link_one != blank %}  <a style="background:{{block.settings.color_2}};color:{{block.settings.color_3}};" href="{{ block.settings.banner_link_one }}" class="btn btn-color-primary btn-style-default btn-size-default">{{ block.settings.banner_btn_title_one }}</a> {%endif%}             
+              </div>
+			{%- endif-%}
+ {% if block.settings.select_id == 'Bottom' %} 
+              {%- if block.settings.image_one != blank -%}
+              <div class="custom_logoimage">
+                <img src="{{block.settings.image_one | img_url:''}}">
+              </div>
+              {%endif%}
+{%endif%}
+          </div>
+        </div>
+{%endif%}
+  {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+  {% if section.blocks.size > 1  %}
+<script>
+  $(document).ready(function(){
+    $('.new-slideshow-slider').slick({
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+      autoplay:true,
+  autoplaySpeed: 5000,
+ prevArrow:"<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+  nextArrow:"<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
+});
+  });
+</script>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "New Slider",
+	"class": "index-section index-section--flush index-section--slideshow",
+    "settings": [
+{
+      "type": "header",
+      "content": "== General Settings"
+      }
+],
+ "blocks": [
+      {
+        "type": "item",
+        "name": "New-slider",
+        "settings": [
+{
+                      "type": "checkbox",
+                      "id": "checkboxset_slider",
+                      "label": "Enable Slider"
+                      },
+                      {
+                      "type": "image_picker",
+                      "id": "image",
+                      "label": "Background image"
+                      },
+                      {
+                      "type": "text",
+                      "id": "title",
+                      "label": "Heading",
+                      "default": "Image slide"
+                      },
+                      {
+                      "type": "text",
+                      "id": "subheading",
+                      "label": "Subheading",
+                      "default": "Tell your brand's story through video and images"
+                      },
+ 						{
+                      "type": "textarea",
+                      "id": "subdescription",
+                      "label": "Description",
+                      "default": "Tell your brand's story through video and images"
+                      },
+					{
+                      "type": "checkbox",
+                      "id": "checkboxset_time",
+                      "label": "Enable Set Time "
+                      },
+					{
+                      "type": "text",
+                      "id": "set_time",
+                      "label": "Set Time Jan 5, 2021 ",
+                      "default": "Jan 5, 2021 "
+                      },
+                      {
+                      "type":"color",
+                      "id":"color_1",
+                      "label":"Heading Text color"
+                      },	
+					 {
+                      "type":"color",
+                      "id":"color_4",
+                      "label":"Text color"
+                      },
+                      {
+                      "type": "text",
+                      "id": "banner_btn_title",
+                      "label": "Button title 1",
+                      "info": "Add here few words to your title button."
+                      },
+                      {
+                      "type": "url",
+                      "id": "banner_link",
+                      "label": "Banner link 1",
+                      "info": "Enter URL if you want this banner to have a link."
+                      },
+						{
+                      "type": "text",
+                      "id": "banner_btn_title_one",
+                      "label": "Button title 2",
+                      "info": "Add here few words to your title button."
+                      },
+                      {
+                      "type": "url",
+                      "id": "banner_link_one",
+                      "label": "Banner link 2",
+                      "info": "Enter URL if you want this banner to have a link."
+                      },
+                      {
+                      "type":"color",
+                      "id":"color_2",
+                      "label":"Button Background color"
+                      },	
+                      {
+                      "type":"color",
+                      "id":"color_3",
+                      "label":"Button Text color"
+                      },	
+                      {
+                      "type": "header",
+                      "content": "== Brands Image"
+                      },
+						{
+                      "type": "image_picker",
+                      "id": "image_one",
+                      "label": "Brand image"
+                      },
+                        {
+                        "type":      "select",
+                        "id":        "select_id",
+                        "label":     "Brand Image alignment",
+                        "options": [
+                        {
+                        "value": "Top",
+                        "label": "Top"
+                        },
+                        {
+                        "value": "Bottom",
+                        "label": "Bottom"
+                        }
+                        ],
+                        "default":   "Bottom",
+                        "info":      "Select Brand Image alignment"
+                        }
+        ]
+      }
+    ],
+"presets": [
+    {
+      "name": "New-Slider",
+      "category": "Slider",
+      "blocks": [
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          }
+        ]
+    }
+  ]
+  }
+{% endschema %}
+
+<script>
+// Set the date we're counting down to
+
+  var loop='{{section.blocks.size}}';
+// Update the count down every 1 second
+var x = setInterval(function() {
+for (i = 1; i <= loop; i++) {
+var time=$('.Custom_timerdemo_'+i).attr("data-time");
+var d = new Date();
+var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+var month = months[d.getMonth()];
+var getDate = d.getDate();
+var getyear = d.getFullYear();
+var totaltime= month+ ' ' + getDate +','+getyear;
+var countDownDate = new Date(totaltime+' 18:00:00').getTime();
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  if(countDownDate > now){
+var dd="<span>" + days + "d : " + hours + "h : "+ minutes + "m : " + seconds + "s </span>";
+    $('.Custom_timerdemo_'+i).html(dd);
+  }
+  else{
+var dd="<span>00 d : 00 h : 00 m : 00 s </span>";
+    $('.Custom_timerdemo_'+i).html(dd);
+}
+  // Output the result in an element with id="demo"
+  //document.getElementById("Custom_timerdemo").innerHTML = "<span>" + days + "d : " + hours + "h : "
+ // + minutes + "m : " + seconds + "s </span>";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}
+}, 1000);
+</script>
